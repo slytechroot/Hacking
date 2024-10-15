@@ -32,6 +32,25 @@ USING CHISEL with REVERSE
 Browse the website located on the remote .69 system from the system where you started the chisel server.
 http://127.0.0.1:4444
 
+######################
+USING CHISEL with REVERSE and SOCKS5
+(Kali)
+./chisel server -p 3333 --reverse --socks5
+
+(another Linux system)
+./chisel32 client 192.168.1.70:3333 R:5555:socks
+
+(back on Kali)
+sudo nano /etc/proxychains4.conf
+
+add:
+socks5 127.0.0.1 5555
+
+(back on Kali. perform a port scan)
+proxychains nmap -p80,21 192.168.1.69
+
+
+
 
 
 
