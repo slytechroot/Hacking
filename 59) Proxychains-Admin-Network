@@ -6,7 +6,8 @@ pass = PASSw0rd123
 
 ssh -D 127.0.0.1:8082 -p 222 dc02@10.0.0.16 <--from the original pivot machine to connect to the new pivot machine. IE - dc01 to dc02
 
-ssh -R 192.168.1.70:6666:127.0.0.1:1234
+ssh -R 192.168.1.70:6666:127.0.0.1:1234 mongol@192.168.0.103
+
 
 
 
