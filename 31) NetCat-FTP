@@ -1,3 +1,24 @@
+1) Simple HTTP Option usage
+nc -v google.com 80
+  GET / HTTP/1.1
+
+2) Chat/information transfer between 2 hosts, testing locally
+nc -nlvp 1234 ---> nc -nv 127.0.0.1 1234
+
+######################
+echo "mongol" >> test.txt
+- file transfer
+(setup listener and pipe the file to get transferred)
+nc -nlvp 1234 < test.txt
+
+(display the file content on screen)
+nc -nv 127.0.0.1 1234
+
+(transfer the file content to file)
+nc -nv 127.0.0.1 1234 > sample.txt
+
+######################################
+
 nc -l -p 443 < C:\bank-account.zip --from machine that has the file, this one is windows.
 
 nc -w3 192.168.31.201 443 > C:\bank-account.zip
