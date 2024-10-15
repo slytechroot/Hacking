@@ -19,6 +19,44 @@ wget http://127.0.0.1:5555/
 
 - you should get requested in the tcpdump!!!!!
 
+#####################
+USING CHISEL with REVERSE
+- 'reverse' is used when a chisel client is tunneling its traffic through the chisel server, it can open on the server any 'reverse' port for return traffic it wants. The port has been closed since the client opened it.
+
+./chisel server -p 3333 --reverse
+
+./chisel32 client 192.168.1.70:3333 R:4444:192.168.1.69:80
+(should be connected)
+(you should see the session getting established on the 'chisel server')
+
+Browse the website located on the remote .69 system from the system where you started the chisel server.
+http://127.0.0.1:4444
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
