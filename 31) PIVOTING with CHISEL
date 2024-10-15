@@ -1,0 +1,31 @@
+CHISEL
+- this is a server/service that can run in server or client states
+https://github.com/jpillora/chisel
+
+./chisel -h
+- the chisel server is not? connected to the internet, but has an open port on 3333. could be useful for airgapped computers?
+
+./chisel server -p 3333
+
+(remote system)(5555 - is the local port on our remote machine)
+./chisel32 client 192.168.1.70:3333 5555:192.168.1.1:80
+
+- now the traffic is getting routed through the server connected to the internet. useful when we need to push the traffic through the first machine setup as server with chisel.
+
+sudo tcpdump -i any 192.168.1.70
+
+(back on the remote system)
+wget http://127.0.0.1:5555/
+
+- you should get requested in the tcpdump!!!!!
+
+
+
+
+
+
+
+
+
+
+
