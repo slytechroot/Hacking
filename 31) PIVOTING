@@ -1,3 +1,15 @@
 sudo iptables -A INPUT -s 192.168.1.70 -p tcp --dport 22 -j DROP
 
+nc -nlvp 6969 | nc -nv 127.0.0.1 22
+
+(Pipes)
+mknod pipe1 p
+nc -nlvp 6969 < pipe1 | nc -nv 127.0.0.1 22 > pipe1
+
+ssh kali@192.168.1.70 -p 6969
+
+Test it without authentication.
+
+
+
 
