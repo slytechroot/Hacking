@@ -1,0 +1,10 @@
+sudo apt install socat
+
+socat INPUT_STREAM OUTPUT_STREAM
+
+(chat)
+socat TCP4-LISTEN:1234 STDOUT  --->  socat STDIN TCP4:127.0.0.1:1234
+
+(execute)
+socat TCP4-LISTEN:1234 EXEC:/bin/bash ---> socat STDIN TCP4:127.0.0.1:1234
+
