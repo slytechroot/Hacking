@@ -65,7 +65,41 @@ proxychains nmap -p80,21 192.168.1.69
 browse the web:
 http://127.0.0.1:1111
 
-########################
+#########
+Start another socks to tunnel into server4 on server 3 (the closest to server 4)
+./chisel server -p 2222 --reverse --socks5
+
+(another Linux system - machine/server 3)
+./chisel32 client server3:3333 R:5555:socks
+
+- now the 3rd server is acting as a socks proxy
+
+(machine 1)
+./chisel32 client machine1:3333 R:1111:socks
+
+(back on Kali/server1)
+sudo nano /etc/proxychains4.conf
+
+add:
+socks5 127.0.0.1 1111
+
+- test from Server1:
+proxychains nmap -p80,21 server4
+
+(we can see server1:1111 connecting into server2:5555 connecting into server3:80)
+
+We have successfully scanned server4 from server1, across 2 servers to get to server4.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
