@@ -1,0 +1,33 @@
+sudo apt install squid
+
+sudo nano /etc/squid/squid.conf
+or
+sudo leafpad /etc/squid/squid.conf
+(search for 'http_access' and change to 'allow all' instead of 'deny all' under 'And finally deny all other access to this proxy')
+
+sudo systemctl restart squid
+
+sudo apt install htop
+
+sudo nano /etc/apt/apt.conf.d/proxy.conf
+
+- if the proxy.conf does not exist, a file needs to be created at that path.
+
+proxy.conf:
+Acquire::http::Proxy "http://kali:6969";
+Acquire::https::Proxy "https://kali:6969";
+(close)
+
+sudo apt install htop
+(successfully)
+
+
+
+
+
+
+
+
+
+
+
