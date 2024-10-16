@@ -1,3 +1,36 @@
-VPN_tunnels_over_ICMP
+IP over ICMP
+https://github.com/friedrich/hans
+
+(server)
+sudo ./hans -s 10.1.1.1 -f -v -p test123
+
+(client)
+sudo ./hans -c 192.168.69.133 -f -v -p test123
+(connection should establish)
+
+ping an IP address between the client and server to test connectivity.
+
+enable IP forwarding for both the server and client:
+sudo nano /proc/sys/net/ipv4/ip_forward
+0 -> 1
+
+sudo route add -net 10.10.10.0/24 gw 10.1.1.100
+
+route
+(should see the gateway IP)
+
+sudo iptables -t nat -A POSTROUTING -s 10.1.1.1 -o ens38 -J MASQUERADE
+(is the gateway wrong?)
+
+This example did NOT work!!!!
+Try to replicate.
+
+
+
+
+
+
+
+
 
 
