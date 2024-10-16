@@ -59,6 +59,16 @@ proxychains nmap -p80,21 192.168.1.69
 (machine/server 3)
 ./chisel32 client server2:2222 R:5555:machine4:80
 
+(machine 1)
+./chisel32 client machine1:3333 R:1111:127.0.0.1:5555
+
+browse the web:
+http://127.0.0.1:1111
+
+########################
+
+
+
 
 
 
