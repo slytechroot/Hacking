@@ -1,4 +1,17 @@
 https://github.com/yarrick/iodine
 
+You need to purchase a domain, maybe from NameCheap.
+
+Go to Advanced DNS and add the 'iod' to an NS Record and an A record and put under Host 'testing' and the IP address of the Linux machine built under Linode or other platforms.
+
+go to code.kyro.se/iodine/check-it/ to check the tunnel.
+
+
+
+
+
+
+
+
 
 
