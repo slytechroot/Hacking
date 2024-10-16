@@ -1,1 +1,66 @@
+- root is needed on the box
+- change some configuration in SSH
+
+nano /etc/ssh/sshd_config
+
+add/change:
+PermitRootLogin yes
+PermitTunnel yes
+PermitRootAccess yes
+
+ifconfig
+192.168.1.2
+
+Kali:
+192.168.10.2
+
+sudo ssh -w 6:6 root@192.168.1.2
+(this will create an adapter on our machine)
+
+sudo ip addr add 2.2.2.2/32 peer 2.2.2.1
+(2.2.2.1 - ip address for w:6 adapter)
+
+sudo ip link set tun6 up
+
+ifconfig
+
+(on attacker)
+sudo ip addr add 2.2.2.1/32 peer 2.2.2.2 dev tun6
+sudo ip link set tun6 up
+ifconfig
+(see tun6 adapter)
+
+(on attacker)
+nano /proc/sys/net/ipv4/ip_forward
+(if result is 0, change to 1)
+
+(on victim)
+iptables -a nat -A POSTROUTING -s 2.2.2.2 -o eth1 -j MASQUERADE
+(eth1 because that's the network we want to pivot to. we have eth0, eth1 and tun6 on this system)
+sudo route add -net 10.10.10.0/24 gw 2.2.2.1
+ping 10.10.10.5
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
