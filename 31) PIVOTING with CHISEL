@@ -5,14 +5,14 @@ https://github.com/jpillora/chisel
 ./chisel -h
 - the chisel server is not? connected to the internet, but has an open port on 3333. could be useful for airgapped computers?
 
-./chisel server -p 3333
+./chisel server1 -p 3333
 
 (remote system)(5555 - is the local port on our remote machine)
-./chisel32 client 192.168.1.70:3333 5555:192.168.1.1:80
+./chisel32 client server1:3333 5555:someIP:80
 
 - now the traffic is getting routed through the server connected to the internet. useful when we need to push the traffic through the first machine setup as server with chisel.
 
-sudo tcpdump -i any 192.168.1.70
+sudo tcpdump -i any server1_IP
 
 (back on the remote system)
 wget http://127.0.0.1:5555/
@@ -25,7 +25,7 @@ USING CHISEL with REVERSE
 
 ./chisel server -p 3333 --reverse
 
-./chisel32 client 192.168.1.70:3333 R:4444:192.168.1.69:80
+./chisel32 client server1:3333 R:4444:server3:80
 (should be connected)
 (you should see the session getting established on the 'chisel server')
 
@@ -34,10 +34,10 @@ http://127.0.0.1:4444
 
 ######################
 USING CHISEL with REVERSE and SOCKS5
-(Kali)
+(Kali- machine/server 1)
 ./chisel server -p 3333 --reverse --socks5
 
-(another Linux system)
+(another Linux system - machine/server 2)
 ./chisel32 client 192.168.1.70:3333 R:5555:socks
 
 (back on Kali)
@@ -48,6 +48,17 @@ socks5 127.0.0.1 5555
 
 (back on Kali. perform a port scan)
 proxychains nmap -p80,21 192.168.1.69
+
+###################################
+
+- now we will use the machine running the chisel32 service to access a 4th system, so we will server the 2nd machine with 'chisel32' and the 'server' option.
+
+(machine/server 2)
+./chisel32 server -p 2222 --reverse
+
+(machine/server 3)
+./chisel32 client server2:2222 R:5555:machine4:80
+
 
 
 
