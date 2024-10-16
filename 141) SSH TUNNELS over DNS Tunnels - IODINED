@@ -44,6 +44,10 @@ nmap -sV -Pn -p 22 127.0.0.1 6969
 
 ssh root@127.0.0.1 -p 6969
 
+- adding the route to the nameserver
+(issue with the box freezing, so the routing does not work well with IODINE and it will be VERY SLOOOOW)
+
+
 
 
 
