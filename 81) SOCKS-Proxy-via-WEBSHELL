@@ -1,0 +1,19 @@
+start a php server listener
+php -S 192.168.69.2:8000
+
+regeorg Webshell
+
+https://github.com/xl7dev/WebShell
+cd reGeorg
+python2 reGeorgSocksProxy.py -h
+
+python2 reGeorgSocksProxy.py -p 1080 -u http://192.168.69.2:8000 tunnel.php
+
+it seems the adapter is not showing and any proxying is not working!!!!
+
+
+
+
+
+
+
